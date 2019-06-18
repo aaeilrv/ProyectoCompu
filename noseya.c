@@ -2,251 +2,338 @@
 #include <stdlib.h>
 
 /*cosas por hacer:
--hacer funcion de computadora (AI)
 -colocar ! para salir y ficha del jugador cada vez que juega (ya lo puse mas no sirve aaaa)
--hacer funcion de ganar, perder, empatar
 -guardar como archivo de texto
--colocar structs en las casillas (aka modificar todo)
--que void AI() comparta char compu
+
+COMO HACER PARA QUE DESPUES DE DECIR EL RESULTADO NO SIGA LLAMANDO A LA FUNCION "OCUPADO"
 */
 
-char ficha; //La variable ficha permite escojer con cual ficha se identificara el usuario. Es una variable global puesto que se utiliza en dos funciones
-char compu; //La variable compu le asigna a la computadora la ficha contraria a la que escogio el jugador. Si este selecciono X, la ficha de la computadora sera O y viceversa.
+typedef struct simbolo {
+	int marcado; //if marcado == 0 significa que NO esta ocupada, if marcado == 1, significa que ESTA OCUPADA
+    char simbolo;
+    int choice;
+}CASILLA;
 
-//Esta funcion crea el tablero, colocando los numeros del 1 al 9 en cada casilla para identificarlas
-void Tablero(char board[3][3]) { 
+CASILLA casilla1 = {0,'1'};
+CASILLA casilla2 = {0,'2'};
+CASILLA casilla3 = {0,'3'};
+CASILLA casilla4 = {0,'4'};
+CASILLA casilla5 = {0,'5'};
+CASILLA casilla6 = {0,'6'};
+CASILLA casilla7 = {0,'7'};
+CASILLA casilla8 = {0,'8'};
+CASILLA casilla9 = {0,'9'};
 
-	printf("\n");
+char simbolo; //Either X or O. es global porque no solo se va a usar en una funcion sino en varias
+char compu; //si el usuario es X la computadora es O y viceversa
 
-	for(int i = 0; i < 3; i++){
+//hace el tablero, los nros del 1 al 9 vienen dados por el valor de casilla(i).simbolo
+void Tablero(){
 
-		for(int j = 0; j < 3; j++){
-
-			if(j < 2){
-				printf("   %c   |",board[i][j]);
-			}
-
-			else{
-				printf("   %c",board[i][j]);
-			}
-		}
-
-		if(i < 2){
-			printf("\n-----------------------\n");
-		}
-	}
-
+	printf("\n        %c   |   %c   |   %c   ",casilla1.simbolo,casilla2.simbolo,casilla3.simbolo);
+	printf("\n     -----------------------");
+	printf("\n        %c   |   %c   |   %c   ",casilla4.simbolo,casilla5.simbolo,casilla6.simbolo);
+	printf("\n     -----------------------");
+	printf("\n        %c   |   %c   |   %c   ",casilla7.simbolo,casilla8.simbolo,casilla9.simbolo);
 }
 
-/*La funcion Option() permite que el usuario escoja la ficha con la que desea identificarse durante el juego, si X u O.
-En el caso de escojer una de las dos, la otra automaticamente es asignada a la computadora*/
-void Option() {
+// La persona escoje entre X u O. si los coloca en minuscula se convierten en mayusculas (not rlly aun pero aja)
+void Opcion() {
 
-	printf("\n\nEscoge la ficha con la que deseas jugar: O o X\n");
-	scanf("%c",&ficha);
+	printf("\n\nEscoge X u O: ");
+	scanf("%c",&simbolo);
 
-	while(ficha != 'X' && ficha != 'x' && ficha != 'O' && ficha != 'o'){
+	while(simbolo != 'X' && simbolo != 'x' && simbolo != 'O' && simbolo != 'o'){
 		printf("\nERROR: esa no es una ficha valida.");
-		printf("\nEscoge la ficha con la que deseas jugar: O o X\n");
+		printf("\n\nEscoge X u O: ");
 		fflush(stdin);		
-		scanf("%c",&ficha);
+		scanf("%c",&simbolo);
 	}
 
-	if(ficha == 'x'){
-		ficha == 'X';
+	if(simbolo == 'X' || simbolo == 'x'){
+		compu = 'O';
 	}
 
-	if (ficha=='o'){
-		ficha == 'O';
+	else if(simbolo == 'O' || simbolo == 'o'){
+		compu = 'X';
 	}
-
-	switch(compu){
-		case 1: if(ficha == 'X' && ficha == 'x'){
-				compu == 'O';
-			}
-		break;
-		case 2: if(ficha == 'O' && ficha == 'o'){
-				compu =='X';
-			}
-		break;
-	}	
 
 }
 
-/*La funcion Casilla() permite que el usuario escoja en cual de las casillas desea jugar. En caso de que la casilla ya este ocupada
-o salga de los limites del tablero, se le notificara al jugador que debe hacer un movimiento valido*/
-void Casilla(char board[3][3]){	
+//Rellena el tablero
+void Ocupado(){	
 
-	int choice; /*La variable choice puede ser un numero del 1 al 9 que identifique en cual casilla jugara el usuario.
-	Dependiendo de cual escoja, esta variable permitira que las casillas se identifiquen como llenas*/
+	char choice;
 
-		//while(choice > '1' || choice < '9'){
+	do{
 		do{
-			Tablero(board);
-			printf("\n\nEscoje una casilla. Si desea salir del juego presione !: ");
+			Tablero();
+			printf("\n\n  Jugador = %c      Computadora = %c",simbolo,compu);
+			printf("\n\nEscoge una casilla. \nSi deseas salir del juego presiona !: ");
 			fflush(stdin);
-			scanf("%d",&choice);
+			scanf("%c",&choice);
+		}while(choice < '1' || choice >'9');
 
-			switch(choice){
-				
-				case 1:
-					if(choice == 1 && board[0][0] == '1'){
-					board[0][0] = ficha;
-					}
+		switch(choice){
+			case '1': if(choice == '1' && casilla1.marcado == 0){
+						//usuario
+						casilla1.marcado = 1;
+						casilla1.simbolo = simbolo;
 
-				break;
+						//computadora
+						casilla5.marcado = 1;
+						casilla5.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
 
-				case 2:
-					if (choice == 2 && board[0][1] == '2'){
-	       		 	board[0][1] = ficha;
-					}
+			break;
 
-				break;
+			case '2': if(choice == '2' && casilla2.marcado == 0){
 
-				case 3:
-					if (choice == 3 && board[0][2] == '3'){
-	       		 	board[0][2] = ficha;
-					}
+						//usuario
+						casilla2.marcado = 1;
+						casilla2.simbolo = simbolo;
 
-				break;
+						//computadora
+						casilla9.marcado = 1;
+						casilla9.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
 
-				case 4:
-					if (choice == 4 && board[1][0] == '4'){
-	       		 	board[1][0] = ficha;
-					}
+			break;
 
-				break;
+			case '3': if(choice == '3' && casilla3.marcado == 0){
 
-				case 5:
-					if (choice == 5 && board[1][1] == '5'){
-	       		 	board[1][1] = ficha;
-					}
+						//usuario
+						casilla3.marcado = 1;
+						casilla3.simbolo = simbolo;
 
-				break;
+						//computadora
+						casilla8.marcado = 1;
+						casilla8.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
 
-				case 6:
-					if (choice == 6 && board[1][2] == '6'){
-	       		 	board[1][2] = ficha;
-					}
+			break;
 
-				break;
+			case '4': if(choice == '4' && casilla4.marcado == 0){
 
-				case 7:
-					if (choice == 7 && board[2][0] == '7'){
-	       		 	board[2][0] = ficha;
-					}
+						//usuario
+						casilla4.marcado = 1;
+						casilla4.simbolo = simbolo;
 
-				break;
+						//computadora
+						casilla1.marcado = 1;
+						casilla1.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
 
-				case 8:
-					if (choice == 8 && board[2][1] == '8'){
-	       		 	board[2][1] = ficha;
-					}
+			break;
 
-				break;
+			case '5': if(choice == '5' && casilla5.marcado == 0){
 
-				case 9:
-					if (choice == 9 && board[2][2] == '9'){
-	       		 	board[2][2] = ficha;
-					}
+						//usuario
+						casilla5.marcado = 1;
+						casilla5.simbolo = simbolo;
 
-				break;
+						//computadora
+						casilla7.marcado = 1;
+						casilla7.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
 
-				case 10:
-					if (choice == '!'){
-						printf("Gracias por jugar!");
-					}
+			break;
 
-				break;
+			case '6': if(choice == '6' && casilla6.marcado == 0){
+
+						//usuario
+						casilla6.marcado = 1;
+						casilla6.simbolo = simbolo;
+
+						//computadora
+						casilla2.marcado = 1;
+						casilla2.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
+
+			break;
+
+			case '7': if(choice == '7' && casilla7.marcado == 0){
+
+						//usuario
+						casilla7.marcado = 1;
+						casilla7.simbolo = simbolo;
+
+						//computadora
+						casilla4.marcado = 1;
+						casilla4.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
+
+			break;
+
+			case '8': if(choice == '8' && casilla8.marcado == 0){
+
+						//usuario
+						casilla8.marcado = 1;
+						casilla8.simbolo = simbolo;
+
+						//computadora
+						//casilla6.marcado = 1;
+						casilla6.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
+
+			break;
+
+			case '9': if(choice == '9' && casilla8.marcado == 0){
+
+						//usuario
+						casilla9.marcado = 1;
+						casilla9.simbolo = simbolo;
+
+						//computadora
+						casilla3.marcado = 1;
+						casilla3.simbolo = compu;
+						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						}
+
+			break;
 			}
-		}while(choice > '1' || choice < '9');
+	
+	}while(casilla1.marcado == 1 || casilla2.marcado == 1 || casilla3.marcado == 1 || casilla4.marcado == 1 || 
+	casilla5.marcado == 1 || casilla6.marcado == 1|| casilla7.marcado == 1 || casilla8.marcado == 1 || casilla9.marcado == 1);
+}
 
-		if(choice == '!'){
-			printf("Gracias por jugar.");
+int Check() {
+
+	if(casilla1.marcado == casilla2.marcado && casilla2.marcado == casilla3.marcado){
+
+		if(casilla1.simbolo == simbolo){
+			return 0;
 		}
 
-		//no funciona idk why
-		while(choice < '1' && choice > '9'){
-			printf("\n\nEscoje una casilla valida: ");
-			fflush(stdin);
-			scanf("%d",&choice);
-
+		else {
+			return 1;
 		}
+	}
+
+	else if(casilla4.marcado == casilla5.marcado && casilla5.marcado == casilla6.marcado){
+
+		if(casilla4.simbolo == simbolo){
+			return 0;
+		}
+
+		else {
+			return 1;
+		}
+	}
+
+	else if(casilla7.marcado == casilla8.marcado && casilla8.marcado == casilla9.marcado){
+
+		if(casilla7.simbolo == simbolo){
+			return 0;
+		}
+		
+		else {
+			return 1;
+		}
+	}
+
+	else if(casilla1.marcado == casilla4.marcado && casilla4.marcado == casilla7.marcado){
+
+		if(casilla1.simbolo == simbolo){
+			return 0;
+		}
+		
+		else {
+			return 1;
+		}
+	}
+
+	else if(casilla2.marcado == casilla5.marcado && casilla5.marcado == casilla8.marcado){
+
+		if(casilla2.simbolo == simbolo){
+			return 0;
+		}
+		
+		else {
+			return 1;
+		}
+	}
+
+	else if(casilla3.marcado == casilla6.marcado && casilla6.marcado == casilla9.marcado){
+
+		if(casilla1.simbolo == simbolo){
+			return 0;
+		}
+		
+		else {
+			return 1;
+		}
+	}
+
+	else if(casilla1.marcado == casilla5.marcado && casilla5.marcado == casilla9.marcado){
+
+		if(casilla1.simbolo == simbolo){
+			return 0;
+		}
+
+		else {
+			return 1;
+		}
+	}
+
+	else if(casilla3.marcado == casilla5.marcado && casilla5.marcado == casilla7.marcado){
+
+		if(casilla3.simbolo == simbolo){
+			return 0;
+		}
+		
+		else {
+			return 1;
+		}
+	}
+
+	else {
+		return 2;
+	}
+}
+
+void Finalizar(){ //ACOMODAAAAAAAAAAR
+
+	int result;
+
+	printf("\n¿Deseas guardar tu resultado como un archivo de texto?\n\n(1) Si      (2) no\n");
+	scanf("%c",&result);
+
+	if(result == '1'){
+		printf("ok");
+	}
 
 }
 
-/*Esta funcion permite que la computadora pueda jugar, haciendo una estrategia de BLABLABLA*/
-/*void AI (char board[3][3]){
 
-	srand(time(NULL));
+int main(){
 
-}*/
+	int i,k;
 
-/*void Ganar(char board[3][3]){
+	i = 0;
 
-	switch(board[3][3]){
-		case 1: if(board[0][0] == board [0][1] && board [0][1] == board [0][2]){
-			printf("GANASTE!");
-		}
-		break;
+	Opcion();
+	Tablero();
 
-		case 2:if(board[1][0] == board [1][1] && board [1][1] == board [1][2]){
-			printf("GANASTE!");
-		}
-		break;
+	do{
+		system("cls");
 
-		case 3:if(board[2][0] == board [2][1] && board [2][1] == board [2][2]){
-			printf("GANASTE!");
-		}
-		break;
+		Ocupado();
 
-		case 4:if(board[0][0] == board [1][0] && board [1][0] == board [2][0]){
-			printf("GANASTE!");
-		}
-		break;
+		k = Check();
 
-		case 5:if(board[0][1] == board [1][1] && board [0][1] == board [2][1]){
-			printf("GANASTE!");
-		}
-		break;
+	}while(i <= 3 &&  k == 2);
+	i++;
 
-		case 6:if(board[2][0] == board [2][1] && board [2][1] == board [2][2]){
-			printf("GANASTE!");
-		}
-		break;
+	Check();
 
-		case 7:if(board[0][0] == board [1][1] && board [1][1] == board [2][2]){
-			printf("GANASTE!");
-		}
-		break;
-
-		case 8:if(board[0][2] == board [1][1] && board [1][1] == board [2][0]){
-			printf("GANASTE!");
-		}
-		break;
-	}
-}*/
-
-int main (){
-
-system("cls");
-
-char board[3][3] = {
-	{'1','2','3'},
-    {'4','5','6'},
-    {'7','8','9'}
-};
-
-Option();
-
-Casilla(board);
-
-//AI(board);
-
-Tablero(board);
-
-//Ganar(board);
-
-return 0;
-
+	return 0;
 }
