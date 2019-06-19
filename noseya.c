@@ -306,7 +306,7 @@ int Check() {
 			return 0;
 		}
 
-		else if(casilla1.simbolo ==ficha){
+		else if(casilla1.simbolo == compu){
 			return 1;
 		}
 	}
@@ -317,7 +317,7 @@ int Check() {
 			return 0;
 		}
 
-		else if(casilla4.simbolo ==ficha){
+		else if(casilla4.simbolo == compu){
 			return 1;
 		}
 	}
@@ -328,7 +328,7 @@ int Check() {
 			return 0;
 		}
 		
-		else if(casilla7.simbolo ==ficha){
+		else if(casilla7.simbolo == compu){
 			return 1;
 		}
 	}
@@ -339,7 +339,7 @@ int Check() {
 			return 0;
 		}
 		
-		else if(casilla1.simbolo ==ficha){
+		else if(casilla1.simbolo == compu){
 			return 1;
 		}
 	}
@@ -350,7 +350,7 @@ int Check() {
 			return 0;
 		}
 		
-		else if(casilla2.simbolo ==ficha){
+		else if(casilla2.simbolo == compu){
 			return 1;
 		}
 	}
@@ -361,7 +361,7 @@ int Check() {
 			return 0;
 		}
 		
-		else if(casilla3.simbolo ==ficha){
+		else if(casilla3.simbolo == compu){
 			return 1;
 		}
 	}
@@ -372,7 +372,7 @@ int Check() {
 			return 0;
 		}
 
-		else if(casilla1.simbolo ==ficha){
+		else if(casilla1.simbolo == compu){
 			return 1;
 		}
 	}
@@ -383,7 +383,7 @@ int Check() {
 			return 0;
 		}
 		
-		else if(casilla3.simbolo ==ficha){
+		else if(casilla3.simbolo == compu){
 			return 1;
 		}
 	}
