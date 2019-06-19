@@ -1,17 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 /*cosas por hacer:
 -colocar ! para salir y ficha del jugador cada vez que juega (ya lo puse mas no sirve aaaa)
--guardar como archivo de texto
-
 COMO HACER PARA QUE DESPUES DE DECIR EL RESULTADO NO SIGA LLAMANDO A LA FUNCION "OCUPADO"
 */
 
-typedef struct simbolo {
+typedef struct simbolo{
 	int marcado; //if marcado == 0 significa que NO esta ocupada, if marcado == 1, significa que ESTA OCUPADA
     char simbolo;
-    int choice;
 }CASILLA;
 
 CASILLA casilla1 = {0,'1'};
@@ -19,7 +17,7 @@ CASILLA casilla2 = {0,'2'};
 CASILLA casilla3 = {0,'3'};
 CASILLA casilla4 = {0,'4'};
 CASILLA casilla5 = {0,'5'};
-CASILLA casilla6 = {0,'6'};
+CASILLA casilla6 = {0,'6'};		
 CASILLA casilla7 = {0,'7'};
 CASILLA casilla8 = {0,'8'};
 CASILLA casilla9 = {0,'9'};
@@ -57,10 +55,9 @@ void Opcion() {
 	else if(simbolo == 'O' || simbolo == 'o'){
 		compu = 'X';
 	}
-
 }
 
-//Rellena el tablero
+//Rellena el tablero con la ficha que ingresa el usuario. Si la ficha esta repetida le informa para que coloque otra
 void Ocupado(){	
 
 	char choice;
@@ -72,139 +69,228 @@ void Ocupado(){
 			printf("\n\nEscoge una casilla. \nSi deseas salir del juego presiona !: ");
 			fflush(stdin);
 			scanf("%c",&choice);
-		}while(choice < '1' || choice >'9');
+		}while(choice < '1' || choice > '9');
 
-		switch(choice){
-			case '1': if(choice == '1' && casilla1.marcado == 0){
-						//usuario
-						casilla1.marcado = 1;
-						casilla1.simbolo = simbolo;
+	switch(choice){
+			case '1': if(choice == '1'){
 
-						//computadora
-						casilla5.marcado = 1;
-						casilla5.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						if(casilla1.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
 						}
 
-			break;
-
-			case '2': if(choice == '2' && casilla2.marcado == 0){
-
-						//usuario
-						casilla2.marcado = 1;
-						casilla2.simbolo = simbolo;
-
-						//computadora
-						casilla9.marcado = 1;
-						casilla9.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						else if(casilla1.marcado == 0){
+							casilla1.marcado = 1;
+							casilla1.simbolo = simbolo;
 						}
 
+						system("cls");
+					}
 			break;
 
-			case '3': if(choice == '3' && casilla3.marcado == 0){
+			case '2': if(choice == '2'){
 
-						//usuario
-						casilla3.marcado = 1;
-						casilla3.simbolo = simbolo;
-
-						//computadora
-						casilla8.marcado = 1;
-						casilla8.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						if(casilla2.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
 						}
 
+						else if(casilla2.marcado == 0){
+							casilla2.marcado = 1;
+							casilla2.simbolo = simbolo;
+						}	
+
+						system("cls");
+					}	
 			break;
 
-			case '4': if(choice == '4' && casilla4.marcado == 0){
+			case '3': if(choice == '3'){
 
-						//usuario
-						casilla4.marcado = 1;
-						casilla4.simbolo = simbolo;
-
-						//computadora
-						casilla1.marcado = 1;
-						casilla1.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						if(casilla3.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
 						}
 
+						else if(casilla3.marcado == 0){
+							casilla3.marcado = 1;
+							casilla3.simbolo = simbolo;
+						}	
+
+						system("cls");
+					}	
 			break;
 
-			case '5': if(choice == '5' && casilla5.marcado == 0){
+			case '4': if(choice == '4'){
 
-						//usuario
-						casilla5.marcado = 1;
-						casilla5.simbolo = simbolo;
-
-						//computadora
-						casilla7.marcado = 1;
-						casilla7.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						if(casilla4.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
 						}
 
-			break;
-
-			case '6': if(choice == '6' && casilla6.marcado == 0){
-
-						//usuario
-						casilla6.marcado = 1;
-						casilla6.simbolo = simbolo;
-
-						//computadora
-						casilla2.marcado = 1;
-						casilla2.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						else if(casilla4.marcado == 0){
+							casilla4.marcado = 1;
+							casilla4.simbolo = simbolo;
 						}
 
+						system("cls");
+					}		
 			break;
 
-			case '7': if(choice == '7' && casilla7.marcado == 0){
+			case '5': if(choice == '5'){
 
-						//usuario
-						casilla7.marcado = 1;
-						casilla7.simbolo = simbolo;
-
-						//computadora
-						casilla4.marcado = 1;
-						casilla4.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						if(casilla5.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
 						}
 
+						else if(casilla5.marcado == 0){
+							casilla5.marcado = 1;
+							casilla5.simbolo = simbolo;
+						}	
+
+						system("cls");
+					}	
 			break;
 
-			case '8': if(choice == '8' && casilla8.marcado == 0){
+			case '6': if(choice == '6'){
 
-						//usuario
-						casilla8.marcado = 1;
-						casilla8.simbolo = simbolo;
-
-						//computadora
-						//casilla6.marcado = 1;
-						casilla6.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						if(casilla6.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
 						}
 
+						else if(casilla6.marcado == 0){
+							casilla6.marcado = 1;
+							casilla6.simbolo = simbolo;
+						}	
+
+						system("cls");
+					}	
 			break;
 
-			case '9': if(choice == '9' && casilla8.marcado == 0){
+			case '7': if(choice == '7'){
 
-						//usuario
-						casilla9.marcado = 1;
-						casilla9.simbolo = simbolo;
-
-						//computadora
-						casilla3.marcado = 1;
-						casilla3.simbolo = compu;
-						//printf("La casilla esta ocupada. Intentalo nuevamente.\n");
+						if(casilla7.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
 						}
 
+						else if(casilla7.marcado == 0){
+							casilla7.marcado = 1;
+							casilla7.simbolo = simbolo;
+						}	
+
+						system("cls");
+					}		
 			break;
-			}
+
+			case '8': if(choice == '8'){
+
+						if(casilla8.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
+						}
+
+						else if(casilla8.marcado == 0){
+							casilla8.marcado = 1;
+							casilla8.simbolo = simbolo;
+						}	
+
+						system("cls");
+					}		
+			break;
+
+			case '9': if(choice == '9'){
+
+						if(casilla9.marcado == 1){
+							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
+						}
+
+						else if(casilla9.marcado == 0){
+							casilla9.marcado = 1;
+							casilla9.simbolo = simbolo;
+						}	
+
+						system("cls");
+					}		
+			break;
+			}	
 	
-	}while(casilla1.marcado == 1 || casilla2.marcado == 1 || casilla3.marcado == 1 || casilla4.marcado == 1 || 
-	casilla5.marcado == 1 || casilla6.marcado == 1|| casilla7.marcado == 1 || casilla8.marcado == 1 || casilla9.marcado == 1);
+	}while(casilla1.marcado == 1 || casilla2.marcado == 1 || casilla3.marcado == 1 || casilla4.marcado == 1 ||
+	casilla5.marcado == 1 || casilla6.marcado == 1 || casilla7.marcado == 1 || casilla8.marcado == 1 || casilla9.marcado == 1);
 }
 
+//Rellena el tablero con la ficha de la computadora (not rlly aun pero aja)
+void AI(){
+
+	int random,k;
+
+	srand(time(NULL));
+
+	do{
+		random = rand() % 10;
+
+		k = 0;
+
+		if(casilla1.marcado == 1 || casilla2.marcado == 1 || casilla3.marcado == 1 || casilla4.marcado == 1 || 
+		casilla5.marcado == 1 || casilla6.marcado == 1|| casilla7.marcado == 1 || casilla8.marcado == 1 || casilla9.marcado == 1){
+
+			k = 1;
+
+		}
+
+	}while(k = 1);
+
+	switch(random){
+		case '1': if (random == 1){
+					casilla1.simbolo = compu;
+					casilla1.marcado = 1;
+				}
+		break;
+
+		case '2': if (random == 2){
+					casilla2.simbolo = compu;
+					casilla2.marcado = 1;
+				}
+		break;
+
+		case '3': if (random == 3){
+					casilla3.simbolo = compu;
+					casilla3.marcado = 1;
+				}
+		break;
+
+		case '4': if (random == 4){
+					casilla4.simbolo = compu;
+					casilla4.marcado = 1;
+				}
+		break;
+
+		case '5': if (random == 5){
+					casilla5.simbolo = compu;
+					casilla5.marcado = 1;
+				}
+		break;
+
+		case '6': if (random == 6){
+					casilla6.simbolo = compu;
+					casilla6.marcado = 1;
+				}
+		break;
+
+		case '7': if (random == 7){
+					casilla7.simbolo = compu;
+					casilla7.marcado = 1;
+				}
+		break;
+
+		case '8': if (random == 8){
+					casilla8.simbolo = compu;
+					casilla8.marcado = 1;
+				}
+		break;
+
+		case '9': if (random == 9){
+					casilla9.simbolo = compu;
+					casilla9.marcado = 1;
+				}
+		break;
+	}
+}
+
+//chequea si se gana, pierde o empata (cuando logre salir del fuckin loop)
 int Check() {
 
 	if(casilla1.marcado == casilla2.marcado && casilla2.marcado == casilla3.marcado){
@@ -213,7 +299,7 @@ int Check() {
 			return 0;
 		}
 
-		else {
+		else if(casilla1.simbolo ==ficha){
 			return 1;
 		}
 	}
@@ -224,7 +310,7 @@ int Check() {
 			return 0;
 		}
 
-		else {
+		else if(casilla4.simbolo ==ficha){
 			return 1;
 		}
 	}
@@ -235,7 +321,7 @@ int Check() {
 			return 0;
 		}
 		
-		else {
+		else if(casilla7.simbolo ==ficha){
 			return 1;
 		}
 	}
@@ -246,7 +332,7 @@ int Check() {
 			return 0;
 		}
 		
-		else {
+		else if(casilla1.simbolo ==ficha){
 			return 1;
 		}
 	}
@@ -257,18 +343,18 @@ int Check() {
 			return 0;
 		}
 		
-		else {
+		else if(casilla2.simbolo ==ficha){
 			return 1;
 		}
 	}
 
 	else if(casilla3.marcado == casilla6.marcado && casilla6.marcado == casilla9.marcado){
 
-		if(casilla1.simbolo == simbolo){
+		if(casilla3.simbolo == simbolo){
 			return 0;
 		}
 		
-		else {
+		else if(casilla3.simbolo ==ficha){
 			return 1;
 		}
 	}
@@ -279,7 +365,7 @@ int Check() {
 			return 0;
 		}
 
-		else {
+		else if(casilla1.simbolo ==ficha){
 			return 1;
 		}
 	}
@@ -290,7 +376,7 @@ int Check() {
 			return 0;
 		}
 		
-		else {
+		else if(casilla3.simbolo ==ficha){
 			return 1;
 		}
 	}
@@ -300,40 +386,114 @@ int Check() {
 	}
 }
 
-void Finalizar(){ //ACOMODAAAAAAAAAAR
+//Crea un archivo de texto con los resultados de la partida
+void Text() {	
+
+	switch(result){
+		case '1': if(result == 0){
+
+				}
+		break;
+
+		case '2': if(result == 1){
+
+				}
+		break;
+
+		case '3': if(result ==3){
+
+				}
+		break;
+	}
+}
+
+/*Le dice al jugador si gano, perdio o empato.
+Ademas pregunta si desea obtener un archivo de texto con su resultado. En caso afirmativo, se va a la funcion Text();*/
+void Resultado(){
 
 	int result;
 
-	printf("\n¿Deseas guardar tu resultado como un archivo de texto?\n\n(1) Si      (2) no\n");
-	scanf("%c",&result);
+	if(Check() == 0){
 
-	if(result == '1'){
-		printf("ok");
+		do{
+			printf("\nFelicidades, Ganaste!");
+			printf("\nDeseas guardar tu resultado como archivo de texto?");
+			printf("\n             1. si              2. no             ");
+			fflush(stdin);		
+			scanf("%d",&result);
+
+			if(result == 1){
+				Text();
+			}
+
+			else if (result == 2){
+				printf("Gracias por jugar!");
+			}
+
+			else if (result != 1 || result != 2){
+				printf("Esa no es una opcion valida");
+			}
+
+		}while(result != 1 || result != 2);	
 	}
 
-}
+	else if(Check() == 1){
 
+		do{
+			printf("\nLo lamento. Perdiste :(");
+			printf("\nDeseas guardar tu resultado como archivo de texto?");
+			printf("\n             1. si              2. no             ");
+			fflush(stdin);		
+			scanf("%d",&result);
+
+			if(result == 1){
+				Text();
+			}
+
+			else if (result == 2){
+				printf("Gracias por jugar!");
+			}
+
+			else if (result != 1 || result != 2){
+				printf("Esa no es una opcion valida");
+			}
+
+		}while(result != 1 || result != 2);	
+	}
+
+	else if(Check() != 0 || Check() != 1){
+
+		do{
+			printf("\nHa sido un empate");
+			printf("\nDeseas guardar tu resultado como archivo de texto?");
+			printf("\n             1. si              2. no             ");
+			fflush(stdin);		
+			scanf("%d",&result);
+
+			if(result == 1){
+				Text();
+			}
+
+			else if (result == 2){
+				printf("Gracias por jugar!");
+			}
+
+			else if (result != 1 || result != 2){
+				printf("Esa no es una opcion valida");
+			}
+
+		}while(result != 1 || result != 2);	
+	}	
+}
 
 int main(){
 
-	int i,k;
-
-	i = 0;
-
+	system("cls");
 	Opcion();
-	Tablero();
-
-	do{
-		system("cls");
-
-		Ocupado();
-
-		k = Check();
-
-	}while(i <= 3 &&  k == 2);
-	i++;
-
+	Ocupado();
+	AI();
 	Check();
+	Resultado();
 
 	return 0;
 }
