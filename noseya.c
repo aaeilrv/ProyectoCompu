@@ -3,8 +3,10 @@
 #include <time.h>
 
 /*cosas por hacer:
--colocar ! para salir y ficha del jugador cada vez que juega (ya lo puse mas no sirve aaaa)
-COMO HACER PARA QUE DESPUES DE DECIR EL RESULTADO NO SIGA LLAMANDO A LA FUNCION "OCUPADO"
+-Lograr salir del loop en User()
+-Colocar ! para salir del juego durante el loop en User()
+
+Chequear si el if-else en Text() funciona
 */
 
 typedef struct simbolo{
@@ -25,6 +27,8 @@ CASILLA casilla9 = {0,'9'};
 char simbolo; //Either X or O. es global porque no solo se va a usar en una funcion sino en varias
 char compu; //si el usuario es X la computadora es O y viceversa
 
+int loop = 0; //se utilizara para saber cuantas veces se paso por el loop de do-while en la funcion User()
+
 //hace el tablero, los nros del 1 al 9 vienen dados por el valor de casilla(i).simbolo
 void Tablero(){
 
@@ -35,7 +39,7 @@ void Tablero(){
 	printf("\n        %c   |   %c   |   %c   ",casilla7.simbolo,casilla8.simbolo,casilla9.simbolo);
 }
 
-// La persona escoje entre X u O. si los coloca en minuscula se convierten en mayusculas (not rlly aun pero aja)
+// La persona escoje entre X u O para ser su ficha
 void Opcion() {
 
 	printf("\n\nEscoge X u O: ");
@@ -58,11 +62,14 @@ void Opcion() {
 }
 
 //Rellena el tablero con la ficha que ingresa el usuario. Si la ficha esta repetida le informa para que coloque otra
-void Ocupado(){	
+void User(){	
 
 	char choice;
 
 	do{
+
+		loop++; //cada vez que se pase por el do-while, int loop aumentara de valor. Esto ayudara a imprimir el nro de jugadas hechas por el usuario al final
+
 		do{
 			Tablero();
 			printf("\n\n  Jugador = %c      Computadora = %c",simbolo,compu);
@@ -389,29 +396,46 @@ int Check() {
 //Crea un archivo de texto con los resultados de la partida
 void Text() {	
 
-	switch(result){
-		case '1': if(result == 0){
+	FILE *fent;
+	fent = fopen("resultadotictactoe.txt","w");
 
-				}
-		break;
+	if(fent == NULL){
+        printf("ERROR: no se puede crear archivo\n");
+        }
 
-		case '2': if(result == 1){
+    else{
 
-				}
-		break;
+		fprintf(fent,"        JUEGO DE LA VIEJA\n");
 
-		case '3': if(result ==3){
+		fprintf(fent,"\n        %c   |   %c   |   %c   ",casilla1.simbolo,casilla2.simbolo,casilla3.simbolo);
+		fprintf(fent,"\n     -----------------------");
+		fprintf(fent,"\n        %c   |   %c   |   %c   ",casilla4.simbolo,casilla5.simbolo,casilla6.simbolo);
+		fprintf(fent,"\n     -----------------------");
+		fprintf(fent,"\n        %c   |   %c   |   %c   ",casilla7.simbolo,casilla8.simbolo,casilla9.simbolo);
 
-				}
-		break;
-	}
+		fprintf(fent,"\n\nTotal de jugadas realizadas: %d",loop);
+
+		if(Check() == 0){
+						fprintf(fent,"\n\nGANASTE!");
+					}
+
+		else if(Check() == 1){
+						fprintf(fent,"\n\nPERDISTE!");
+					}
+
+		else if(Check() == 2){
+						fprintf(fent,"\n\nJUEGO EMPATADO");
+					}
+		}
+
+		fclose(fent);
 }
 
 /*Le dice al jugador si gano, perdio o empato.
 Ademas pregunta si desea obtener un archivo de texto con su resultado. En caso afirmativo, se va a la funcion Text();*/
 void Resultado(){
 
-	int result;
+	int result; //Se utiliza para saber si el usuario desea o no tener un archivo de texto con el resultado. 1 = Si, 2 = No.
 
 	if(Check() == 0){
 
@@ -490,7 +514,7 @@ int main(){
 
 	system("cls");
 	Opcion();
-	Ocupado();
+	User();
 	AI();
 	Check();
 	Resultado();
