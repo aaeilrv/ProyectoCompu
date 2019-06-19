@@ -3,9 +3,12 @@
 #include <time.h>
 
 /*cosas por hacer:
--Colocar ! para salir del juego durante el loop en User()
 -Acomodar Check()
+	-Cuenta ganadas y perdidas con ambos Simbolo y Compu, cuando deberia hacerlo solo con uno
+-Acomodar User()
+	-Cuando la computadora juega, lo hace sobre los espacios ya usados (se debe hacer un switch de rnan)
 */
+
 
 //VARIABLES GLOBALES (Se utilizan en mas de una funcion)
 
@@ -85,7 +88,7 @@ void User(){
 			printf("\n\nEscoge una casilla. \nSi deseas salir del juego presiona !: ");
 			fflush(stdin);
 			scanf("%c",&choice);
-		}while(choice < '1' || choice > '9');
+		}while(choice < '!' || choice > '9');
 
 	switch(choice){
 			case '1': if(choice == '1'){
@@ -249,6 +252,11 @@ void User(){
 						system("cls");
 					}		
 			break;
+			
+			case '!': if(choice == '!'){
+							printf("\nGracias por jugar!");
+							exit(0);
+					}
 			}	
 	
 	}while(Check() != 0);
