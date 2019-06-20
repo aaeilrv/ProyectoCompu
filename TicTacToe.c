@@ -278,9 +278,7 @@ void AI(){
 	srand(time(NULL));
 
 	random = rand() % 10;	
-
-	printf("%d",random);
-
+	
 	if (random == 1){
 		if(casilla1.marcado == 0){
 			casilla1.simbolo = compu;
