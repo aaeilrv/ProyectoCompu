@@ -3,8 +3,8 @@
 #include <time.h>
 
 /*cosas por hacer:
--Acomodar Check()
-	-Cuenta ganadas y perdidas con ambos Simbolo y Compu, cuando deberia hacerlo solo con uno
+-si la computadora repite un nro, que vuelva a calcular random
+-que calcule del 1 al 9, sin el 0
 */
 
 //VARIABLES GLOBALES (Se utilizan en mas de una funcion)
