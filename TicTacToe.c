@@ -34,8 +34,8 @@ int loop = 0; //se utilizara para saber cuantas veces se paso por el loop de do-
 void Tablero();
 void Opcion();
 int Check();
-void User();
 void AI();
+void User();
 void Text();
 void Resultado();
 
@@ -106,13 +106,15 @@ void User(){
 
 						if(casilla1.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
-							}
+						}
 
 						else if(casilla1.marcado == 0){
 							casilla1.marcado = 1;
 							casilla1.simbolo = simbolo;
-							}
+
+							AI();
 						}
+					}
 			break;
 
 			case '2': if(choice == '2'){
@@ -121,13 +123,15 @@ void User(){
 
 						if(casilla2.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
-							}
+						}
 
 						else if(casilla2.marcado == 0){
 							casilla2.marcado = 1;
 							casilla2.simbolo = simbolo;
-							}	
+
+							AI();
 						}	
+					}	
 			break;
 
 			case '3': if(choice == '3'){
@@ -136,13 +140,15 @@ void User(){
 
 						if(casilla3.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
-							}
+						}
 
 						else if(casilla3.marcado == 0){
 							casilla3.marcado = 1;
 							casilla3.simbolo = simbolo;
-							}	
+
+							AI();
 						}	
+					}	
 			break;
 
 			case '4': if(choice == '4'){
@@ -151,13 +157,15 @@ void User(){
 
 						if(casilla4.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
-							}
+						}
 
 						else if(casilla4.marcado == 0){
 							casilla4.marcado = 1;
 							casilla4.simbolo = simbolo;
-							}
-						}		
+
+							AI();
+						}
+					}		
 			break;
 
 			case '5': if(choice == '5'){
@@ -166,13 +174,15 @@ void User(){
 
 						if(casilla5.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
-							}
+						}
 
 						else if(casilla5.marcado == 0){
 							casilla5.marcado = 1;
 							casilla5.simbolo = simbolo;
-							}	
+
+							AI();
 						}	
+					}	
 			break;
 
 			case '6': if(choice == '6'){
@@ -186,23 +196,27 @@ void User(){
 						else if(casilla6.marcado == 0){
 							casilla6.marcado = 1;
 							casilla6.simbolo = simbolo;
+
+							AI();	
 						}	
 					}	
 			break;
 
 			case '7': if(choice == '7'){
-				
+
 						system("cls");
 
 						if(casilla7.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
-							}
+						}
 
 						else if(casilla7.marcado == 0){
 							casilla7.marcado = 1;
 							casilla7.simbolo = simbolo;
-							}	
-						}		
+
+							AI();	
+						}	
+					}		
 			break;
 
 			case '8': if(choice == '8'){
@@ -211,13 +225,16 @@ void User(){
 
 						if(casilla8.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
-							}
+						}
 
 						else if(casilla8.marcado == 0){
 							casilla8.marcado = 1;
 							casilla8.simbolo = simbolo;
-							}	
-						}		
+
+							AI();
+
+						}	
+					}		
 			break;
 
 			case '9': if(choice == '9'){
@@ -226,13 +243,14 @@ void User(){
 
 						if(casilla9.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
-							}
+						}
 
 						else if(casilla9.marcado == 0){
 							casilla9.marcado = 1;
 							casilla9.simbolo = simbolo;
-							}	
-						}		
+							AI();
+						}	
+					}		
 			break;
 
 			case '!': if(choice == '!'){
@@ -259,73 +277,111 @@ void AI(){
 
 	srand(time(NULL));
 
-	do{
-		random = rand() % 10;
+	random = rand() % 10;	
 
-		k = 0;
+	printf("%d",random);
 
-		if(casilla1.simbolo == simbolo || casilla2.simbolo == simbolo || casilla3.simbolo == simbolo || casilla4.simbolo == simbolo || 
-		casilla5.simbolo == simbolo || casilla6.simbolo == simbolo|| casilla7.simbolo == simbolo || casilla8.simbolo == simbolo || casilla9.simbolo == simbolo){
-
-			k = 1;
+	if (random == 1){
+		if(casilla1.marcado == 0){
+			casilla1.simbolo = compu;
+			casilla1.marcado = 1;
 		}
 
-	}while(k = 1);
+		else if(casilla1.marcado == 1){
+			random = rand() % 10;
+		}
+	}
 
-	switch(random){
-		case '1': if (random == 1){
-					casilla1.simbolo = compu;
-					casilla1.marcado = 1;
-				}
-		break;
+	if (random == 2){
+		if(casilla2.marcado == 0){
+			casilla2.simbolo = compu;
+			casilla2.marcado = 1;
+		}
 
-		case '2': if (random == 2){
-					casilla2.simbolo = compu;
-					casilla2.marcado = 1;
-				}
-		break;
+		else{
+			random = rand() % 10;
+		}
+	}
 
-		case '3': if (random == 3){
-					casilla3.simbolo = compu;
-					casilla3.marcado = 1;
-				}
-		break;
+	if (random == 3){
+		if(casilla3.marcado == 0){		
+			casilla3.simbolo = compu;
+			casilla3.marcado = 1;
+		}
 
-		case '4': if (random == 4){
-					casilla4.simbolo = compu;
-					casilla4.marcado = 1;
-				}
-		break;
+		else{
+			random = rand() % 10;
+		}
+	}
 
-		case '5': if (random == 5){
-					casilla5.simbolo = compu;
-					casilla5.marcado = 1;
-				}
-		break;
+	if (random == 4){
+		if(casilla4.marcado == 0){
+			casilla4.simbolo = compu;
+			casilla4.marcado = 1;
+		}
 
-		case '6': if (random == 6){
-					casilla6.simbolo = compu;
-					casilla6.marcado = 1;
-				}
-		break;
+		else{
+			random = rand() % 10;
+		}
+	}
 
-		case '7': if (random == 7){
-					casilla7.simbolo = compu;
-					casilla7.marcado = 1;
-				}
-		break;
+	if (random == 5){
+		if(casilla5.marcado == 0){
+				casilla5.simbolo = compu;
+				casilla5.marcado = 1;
+		}
 
-		case '8': if (random == 8){
-					casilla8.simbolo = compu;
-					casilla8.marcado = 1;
-				}
-		break;
+		else{
+			random = rand() % 10;
+		}		
+	}
 
-		case '9': if (random == 9){
-					casilla9.simbolo = compu;
-					casilla9.marcado = 1;
-				}
-		break;
+	if (random == 6){
+		if(casilla6.marcado == 0){
+			casilla6.simbolo = compu;
+			casilla6.marcado = 1;
+		}
+
+		else{
+			random = rand() % 10;
+		}
+	}
+
+	if (random == 7){
+		if(casilla7.marcado == 0){
+			casilla7.simbolo = compu;
+			casilla7.marcado = 1;
+		}
+
+		else{
+			random = rand() % 10;
+		}
+	}
+
+	if (random == 8){
+		if(casilla8.marcado == 0){
+			casilla8.simbolo = compu;
+			casilla8.marcado = 1;
+		}
+
+		else{
+			random = rand() % 10;
+		}
+	}
+
+	if (random == 9){
+		if(casilla9.marcado == 0){
+			casilla9.simbolo = compu;
+			casilla9.marcado = 1;
+		}
+
+		else{
+			random = rand() % 10;
+		}
+	}	
+
+	if (random == 0){
+		random = rand () % 10;
 	}
 }
 
@@ -335,88 +391,88 @@ int Check() {
 
 	if(casilla1.marcado == casilla2.marcado && casilla2.marcado == casilla3.marcado){
 
-		if(casilla1.simbolo == simbolo){
+		if(casilla1.simbolo == simbolo && casilla2.simbolo == simbolo && casilla3.simbolo && simbolo){
 			return 0;
 		}
 
-		else if(casilla1.simbolo == compu){
+		if(casilla1.simbolo == compu && casilla2.simbolo == compu && casilla3.simbolo == compu){
 			return 1;
 		}
 	}
 
 	if(casilla4.marcado == casilla5.marcado && casilla5.marcado == casilla6.marcado){
 
-		if(casilla4.simbolo == simbolo){
+		if(casilla4.simbolo == simbolo && casilla5.simbolo == simbolo && casilla6.simbolo == simbolo){
 			return 0;
 		}
 
-		else if(casilla4.simbolo == compu){
+		if(casilla4.simbolo == compu && casilla5.simbolo == compu && casilla6.simbolo == compu){
 			return 1;
 		}
 	}
 
 	if(casilla7.marcado == casilla8.marcado && casilla8.marcado == casilla9.marcado){
 
-		if(casilla7.simbolo == simbolo){
+		if(casilla7.simbolo == simbolo && casilla8.simbolo == simbolo && casilla9.simbolo == simbolo){
 			return 0;
 		}
 		
-		else if(casilla7.simbolo == compu){
+		if(casilla7.simbolo == compu && casilla8.simbolo == compu && casilla9.simbolo == compu){
 			return 1;
 		}
 	}
 
 	if(casilla1.marcado == casilla4.marcado && casilla4.marcado == casilla7.marcado){
 
-		if(casilla1.simbolo == simbolo){
+		if(casilla1.simbolo == simbolo & casilla4.simbolo == simbolo && casilla7.simbolo == simbolo){
 			return 0;
 		}
 		
-		else if(casilla1.simbolo == compu){
+		if(casilla1.simbolo == compu && casilla4.simbolo == compu && casilla7.simbolo == compu){
 			return 1;
 		}
 	}
 
 	if(casilla2.marcado == casilla5.marcado && casilla5.marcado == casilla8.marcado){
 
-		if(casilla2.simbolo == simbolo){
+		if(casilla2.simbolo == simbolo && casilla5.simbolo == simbolo && casilla8.simbolo == simbolo){
 			return 0;
 		}
 		
-		else if(casilla2.simbolo == compu){
+		if(casilla2.simbolo == compu && casilla5.simbolo == compu && casilla8.simbolo == compu){
 			return 1;
 		}
 	}
 
 	if(casilla3.marcado == casilla6.marcado && casilla6.marcado == casilla9.marcado){
 
-		if(casilla3.simbolo == simbolo){
+		if(casilla3.simbolo == simbolo && casilla6.simbolo == simbolo && casilla9.simbolo == simbolo){
 			return 0;
 		}
 		
-		else if(casilla3.simbolo == compu){
+		if(casilla3.simbolo == compu && casilla6.simbolo == compu && casilla9.simbolo == compu){
 			return 1;
 		}
 	}
 
 	if(casilla1.marcado == casilla5.marcado && casilla5.marcado == casilla9.marcado){
 
-		if(casilla1.simbolo == simbolo){
+		if(casilla1.simbolo == simbolo && casilla5.simbolo == simbolo && casilla9.simbolo == simbolo){
 			return 0;
 		}
 
-		else if(casilla1.simbolo == compu){
+		if(casilla1.simbolo == compu && casilla5.simbolo == compu && casilla9.simbolo == compu){
 			return 1;
 		}
 	}
 
 	if(casilla3.marcado == casilla5.marcado && casilla5.marcado == casilla7.marcado){
 
-		if(casilla3.simbolo == simbolo){
+		if(casilla3.simbolo == simbolo && casilla5.simbolo == simbolo && casilla7.simbolo == simbolo){
 			return 0;
 		}
 		
-		else if(casilla3.simbolo == compu){
+		if(casilla3.simbolo == compu && casilla5.simbolo == compu && casilla7.simbolo == compu){
 			return 1;
 		}
 	}
