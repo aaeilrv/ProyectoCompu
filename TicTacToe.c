@@ -5,9 +5,6 @@
 /*cosas por hacer:
 -Acomodar Check()
 	-Cuenta ganadas y perdidas con ambos Simbolo y Compu, cuando deberia hacerlo solo con uno
--Acomodar User()
-	-Cuando la computadora juega, lo hace sobre los espacios ya usados (se debe hacer un switch de random)
--Hacer AI()
 */
 
 //VARIABLES GLOBALES (Se utilizan en mas de una funcion)
