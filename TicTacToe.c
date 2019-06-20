@@ -4,13 +4,12 @@
 
 /*cosas por hacer:
 -si la computadora repite un nro, que vuelva a calcular random
--que calcule del 1 al 9, sin el 0
 */
 
-//VARIABLES GLOBALES (Se utilizan en mas de una funcion)
+//VARIABLES GLOBALES: puesto que son utilizados en más de una función
 
 typedef struct simbolo{
-	int marcado; //if marcado == 0 significa que NO esta ocupada, if marcado == 1, significa que ESTA OCUPADA
+	int marcado; 
     char simbolo;
 }CASILLA;
 
@@ -24,9 +23,9 @@ CASILLA casilla7 = {0,'7'};
 CASILLA casilla8 = {0,'8'};
 CASILLA casilla9 = {0,'9'};
 
-char simbolo; //Either X or O. es global porque no solo se va a usar en una funcion sino en varias
-char compu; //si el usuario es X la computadora es O y viceversa
-int loop = 0; //se utilizara para saber cuantas veces se paso por el loop de do-while en la funcion User()
+char simbolo; //Esta variable va a representar el caracter con el cual el usuario desea identificarse a lo largo del juego
+char compu; //Esta variable va a representar el caracter con el que la computadora se identificará durante el juego. Su valor va a depender del valor de la variable simbolo
+int loop = 0; //Esta variable representará el número de veces que el usuario haga movimientos. Se utilizará al final para imprimir el número de movimientos en un archivo de texto
 
 ///////////////////
 
@@ -43,14 +42,14 @@ int main(){
 	system("cls");
 	Opcion();
 	User();
-	//AI();
 	Check();
 	Resultado();
 
 	return 0;
 }
 
-//hace el tablero, los nros del 1 al 9 vienen dados por el valor de casilla(i).simbolo
+/*Esta función imprimirá el tablero el cual va a estar compuesto en primer momento por los valores iniciales de casillai.simbolo. Sin embargo,
+mientras el juego avance, los valores iniciales de las casillas se irán cambiando por las decisiones tomadas por el usuario y la computadora*/
 void Tablero(){
 
 	printf("\n        %c   |   %c   |   %c   ",casilla1.simbolo,casilla2.simbolo,casilla3.simbolo);
@@ -60,7 +59,8 @@ void Tablero(){
 	printf("\n        %c   |   %c   |   %c   ",casilla7.simbolo,casilla8.simbolo,casilla9.simbolo);
 }
 
-// La persona escoje entre X u O para ser su ficha
+/*Al principio, los cambios de esta función no se verán representados gráficamente. Sin embargo, al empezar a introducir valores de casillas, 
+las decisiones del usuario y de la computadora se verán representadas por X u O. Dependiendo de la decisión que tome el usuario en esta función*/
 void Opcion() {
 
 	printf("\n\nEscoge X u O: ");
@@ -82,10 +82,12 @@ void Opcion() {
 	}
 }
 
-/*Rellena el tablero con la ficha que ingresa el usuario. Si la ficha esta repetida le informa para que coloque otra*/
-void User(){	
+/*Los cambios que esta función ejerce son en casillai.simbolo y casillai.marcado. Al escoger una casilla donde jugar, el simbolo inicial cambiará y se 
+marcará para que en la próxima jugada no se pueda volver a escoger esa misma casilla.
+Después de que el usuario escoja una casilla, se dirigirá a la función AI() para ejecutar el movimiento de la computadora*/
+void User(){
 
-	char choice;
+	char choice; //Esta variable representa la casilla en la que el usuario desea colocar su ficha, en caso de que le de el valor de '!', significa que quiere salir del juego
 
 	do{
 
@@ -270,15 +272,18 @@ void User(){
 	}while(Check() != 0 && Check() != 1);
 }
 
-//Rellena el tablero con la ficha de la computadora (not rlly aun pero aja)
+/*Los cambios que hace esta función son rellenando el tablero, es decir, cambiando casillai.simbolo y casillai.valor. Sin embargo, en este caso, los valores
+no serán introducidos por el usuario sino escogidos por la computadora a través de la funcion rand()*/
 void AI(){
 
-	int random,k;
+	int random; //esta variable representa la casilla en la que la computadora introducira una ficha, la cual va a ser escogida por medio de la funcion rand()
 
 	srand(time(NULL));
 
-	random = rand() % 10;	
-	
+	random = rand() % 9 + 1;  //de esta manera solo producira numeros del 1 al 9
+
+	printf("%d",random);
+
 	if (random == 1){
 		if(casilla1.marcado == 0){
 			casilla1.simbolo = compu;
@@ -286,7 +291,7 @@ void AI(){
 		}
 
 		else if(casilla1.marcado == 1){
-			random = rand() % 10;
+			//¯\_(ツ)_/¯
 		}
 	}
 
@@ -383,9 +388,12 @@ void AI(){
 	}
 }
 
-
-//chequea si se gana, pierde o empata
+/*Esta funcion puede retornar tres distintos valores: 0, 1, 2
+-Si retorna 0: significa que el usuario ha ganado el juego
+-Si retorna 1: significa que la computadora ha ganado el juego
+-Si retorna 2: significa que ha habido un empate*/
 int Check() {
+
 
 	if(casilla1.marcado == casilla2.marcado && casilla2.marcado == casilla3.marcado){
 
@@ -480,11 +488,11 @@ int Check() {
 	}
 }
 
-/*Le dice al jugador si gano, perdio o empato.
-Ademas pregunta si desea obtener un archivo de texto con su resultado. En caso afirmativo, se va a la funcion Text();*/
+//Imprime los resultados del juego
 void Resultado(){
 
-	int result; //Se utiliza para saber si el usuario desea o no tener un archivo de texto con el resultado. 1 = Si, 2 = No.
+	int result; /*Esta variable representa la decision del jugador de si guardar sus resultados como un archivo de texto o no. EN caso afirmativo, se dirigira a la funcion Text();
+					En caso negativo, se finalizara automaticamente el juego*/
 
 	if(Check() == 0){
 
@@ -573,6 +581,8 @@ void Resultado(){
 
 //Crea un archivo de texto con los resultados de la partida
 void Text() {	
+
+	//Dependiendo de los valores arrojados por Check() (0, 1 o 2), creara un archivo de texto.
 
 	FILE *fent;
 	fent = fopen("resultadotictactoe.txt","w");
