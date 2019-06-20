@@ -194,6 +194,8 @@ void User(){
 			break;
 
 			case '7': if(choice == '7'){
+				
+						system("cls");
 
 						if(casilla7.marcado == 1){
 							printf("\nLa casilla esta ocupada. Intentalo de nuevo\n");
@@ -345,7 +347,7 @@ int Check() {
 		}
 	}
 
-	else if(casilla4.marcado == casilla5.marcado && casilla5.marcado == casilla6.marcado){
+	if(casilla4.marcado == casilla5.marcado && casilla5.marcado == casilla6.marcado){
 
 		if(casilla4.simbolo == simbolo){
 			return 0;
@@ -356,7 +358,7 @@ int Check() {
 		}
 	}
 
-	else if(casilla7.marcado == casilla8.marcado && casilla8.marcado == casilla9.marcado){
+	if(casilla7.marcado == casilla8.marcado && casilla8.marcado == casilla9.marcado){
 
 		if(casilla7.simbolo == simbolo){
 			return 0;
@@ -367,7 +369,7 @@ int Check() {
 		}
 	}
 
-	else if(casilla1.marcado == casilla4.marcado && casilla4.marcado == casilla7.marcado){
+	if(casilla1.marcado == casilla4.marcado && casilla4.marcado == casilla7.marcado){
 
 		if(casilla1.simbolo == simbolo){
 			return 0;
@@ -378,7 +380,7 @@ int Check() {
 		}
 	}
 
-	else if(casilla2.marcado == casilla5.marcado && casilla5.marcado == casilla8.marcado){
+	if(casilla2.marcado == casilla5.marcado && casilla5.marcado == casilla8.marcado){
 
 		if(casilla2.simbolo == simbolo){
 			return 0;
@@ -389,7 +391,7 @@ int Check() {
 		}
 	}
 
-	else if(casilla3.marcado == casilla6.marcado && casilla6.marcado == casilla9.marcado){
+	if(casilla3.marcado == casilla6.marcado && casilla6.marcado == casilla9.marcado){
 
 		if(casilla3.simbolo == simbolo){
 			return 0;
@@ -400,7 +402,7 @@ int Check() {
 		}
 	}
 
-	else if(casilla1.marcado == casilla5.marcado && casilla5.marcado == casilla9.marcado){
+	if(casilla1.marcado == casilla5.marcado && casilla5.marcado == casilla9.marcado){
 
 		if(casilla1.simbolo == simbolo){
 			return 0;
@@ -411,7 +413,7 @@ int Check() {
 		}
 	}
 
-	else if(casilla3.marcado == casilla5.marcado && casilla5.marcado == casilla7.marcado){
+	if(casilla3.marcado == casilla5.marcado && casilla5.marcado == casilla7.marcado){
 
 		if(casilla3.simbolo == simbolo){
 			return 0;
