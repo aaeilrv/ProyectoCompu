@@ -1,0 +1,210 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
+/*cosas por hacer"
+-cargar archivo de texto
+-decir pista por cada palabra
+-en el archivo deben aparecer las letras jugadas*/
+
+//VARIABLES GLOBALES
+char palabras[][20] = {"murcielagos","universidad","sacrificios","otorrinolaringologo","acaparamiento"};
+
+int posicion; //dependiendo de la posicion random que determine la funcion rand(), se escogera una palabra para el juego
+
+int vidas = 10; //se imprimiran en el txt
+
+char letra[20];
+
+char adivinadas;
+
+int ganar; //se utiliza para saber si la persona gano o no y crear un archivo de texto de acuerdo al caso
+
+//FUNCIONES
+
+void Text();
+void Juego();
+
+void Juego(){
+
+	//VARIABLES LOCALES
+
+	int loop; //veces que la persona ingresa una palabra, puede llegar a ser hasta del valor del largo de la palabra
+	int salir; //para salirse del juego
+	int repetida; //para saber si la letra se repite o no y asi no descontar vidas al repetirse
+
+	srand(time(NULL));
+	posicion = rand () % 10; //escoge una palabra random de la lista de palabras del archivo
+
+	int largopalabra = strlen(palabras[posicion]); //largo de la palabra
+	int ocupado[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //lugares ocupados de la palabra. Si el lugar se ocupa se cambia el 0 por un 1.
+
+	int resultado; //si la persona decide o no guardar su resultado como archivo de texto
+
+	int nroadivinadas = 0; //al principio no se tiene ninguna letra adivinada por lo que comienza en cero
+
+	int nroincorrectas = 0; 
+
+	//PROCESO
+
+	while(nroadivinadas < largopalabra){
+
+		for(loop = 0; loop < largopalabra; loop++){
+			if(ocupado[loop] == 1){
+				printf("%c",palabras[posicion][loop]);
+			}
+
+			else{
+				printf(" _ "); //ocultara la palabra al principio. En caso de tener la letra buena, se revelara la palabra
+			}
+		}
+
+		//printf("\n\n Letras dichas: %c",dichas);
+		printf("\n\nVidas restantes: %d",vidas);
+
+		printf("\nnumero adivinadas: %d",nroadivinadas); //PARA QUITAR LUEGO
+
+		printf("\nIngrese una letra. Si desea salir del juego ingrese SALIR: "); //ACOMODAR
+		fgets(letra,20,stdin);
+
+		adivinadas = letra[0]; //para imprimir la letra que el usuario adivino
+
+		nroincorrectas = nroadivinadas; //puesto que ambas comienzan en cero
+
+		repetida = 0;
+
+		for(loop = 0; loop < largopalabra; loop++){ //se repetira esto hasta que se obtenga la totalidad de letras de la palabra
+			if(ocupado[loop] == 1){ //si la letra ya habia sido adivinada, se seguira el loop sin descontar una vida
+				repetida = 1;
+				continue;
+			}
+
+			else if(adivinadas == palabras[posicion][loop]){			
+				ocupado[loop] = 1;
+				nroadivinadas++;
+			}
+		}
+
+		if(strncmp(letra, "salir", 4) == 0 ){
+			printf("\nGracias por jugar!");
+			exit(0);
+		}
+
+		//si nroadivinadas no incrementa el valor, va a significar que la persona ingreso una letra incorrecta
+		if (nroincorrectas == nroadivinadas) {
+			system("cls");
+
+			printf("\nLa letra colocada es: %c",adivinadas);		
+			printf("\nLetra incorrecta\n");
+			vidas--;
+
+			if (vidas == 0){
+
+				ganar = 0;
+				printf("\nlo lamento, has perdido");
+				printf("\nLa palabra era %s",palabras[posicion]);
+
+				do{
+					printf("\n\nDeseas guardar tu resultado como un archivo de texto?");
+					printf("\n             1. si              2. no             ");
+					fflush(stdin);		
+					scanf("%d",&resultado);
+
+					if(resultado == 1){
+						Text();
+						printf("\nArchivo guardado. Gracias por jugar!");
+						exit(0);
+					}
+
+					else if (resultado == 2){
+						printf("\nGracias por jugar!");
+						exit(0);
+					}
+
+				}while(resultado != 1 || resultado != 2);
+			}
+		}
+
+		else{
+			system("cls");
+
+			printf("\nLa letra colocada es: %c",adivinadas);
+			printf("\nLetra adivinada\n");
+		}
+	}	
+
+	system("cls");
+	ganar = 1;
+	printf("\nFelicidades. Has ganado!");
+	printf("\nLa palabra era %s",palabras[posicion]);
+
+	do{
+		printf("\n\nDeseas guardar tu resultado como un archivo de texto?");
+		printf("\n             1. si              2. no             ");
+		fflush(stdin);		
+		scanf("%d",&resultado);
+
+		if(resultado == 1){
+			Text();
+			printf("\nArchivo guardado. Gracias por jugar!");
+			exit(0);
+		}
+
+		else if (resultado == 2){
+			printf("\nGracias por jugar!");
+			exit(0);
+		}
+
+	}while(resultado != 1 || resultado != 2);
+}
+
+void Text(){
+
+	if(ganar == 1){
+		FILE *fent;
+		fent = fopen("resultadohangman.txt","w");
+
+		if(fent == NULL){
+	        printf("ERROR: no se puede crear archivo\n");
+	        }
+
+	    else{
+
+			fprintf(fent,"\n        JUEGO DEL AHORCADO\n");
+			fprintf(fent,"\n\nPalabra que adivinaste: %s",palabras[posicion]);		
+			fprintf(fent,"\nCantidad de vidas restantes: %d",vidas);
+			fprintf(fent,"\nLetras introducidas: %c",adivinadas);
+			fprintf(fent,"\n             GANASTE!   ");
+
+			fclose(fent);
+		}	
+	}	
+
+
+	else if(ganar == 0){
+		FILE *fent;
+		fent = fopen("resultadohangman.txt","w");
+
+		if(fent == NULL){
+	        printf("ERROR: no se puede crear archivo\n");
+	        }
+
+	    else{
+
+			fprintf(fent,"\n        JUEGO DEL AHORCADO\n");
+			fprintf(fent,"\n\nPalabra a adivinar: %s",palabras[posicion]);
+			//fprintf(fent,"\nLetras introducidas: %c %c %c %c %c %c %c",adivinadas);
+			fprintf(fent,"\n            PERDISTE!   ");
+
+			fclose(fent);
+		}	
+	}
+}
+
+int main(){
+
+	Juego();
+
+	return 0;
+}
