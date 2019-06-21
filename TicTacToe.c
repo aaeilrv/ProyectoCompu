@@ -282,7 +282,7 @@ void AI(){
 
 	random = rand() % 9 + 1;  //de esta manera solo producira numeros del 1 al 9
 
-	printf("%d",random);
+	printf("%d",random); //mientras tanto para saber cual numero esta produciendo
 
 	if (random == 1){
 		if(casilla1.marcado == 0){
