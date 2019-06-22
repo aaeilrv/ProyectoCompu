@@ -276,116 +276,70 @@ void User(){
 no serán introducidos por el usuario sino escogidos por la computadora a través de la funcion rand()*/
 void AI(){
 
-	int random; //esta variable representa la casilla en la que la computadora introducira una ficha, la cual va a ser escogida por medio de la funcion rand()
+	int random,k; //esta variable representa la casilla en la que la computadora introducira una ficha, la cual va a ser escogida por medio de la funcion rand()
 
 	srand(time(NULL));
 
-	random = rand() % 9 + 1;  //de esta manera solo producira numeros del 1 al 9
+	do{
+		random = rand() % 9 + 1;  //de esta manera solo producira numeros del 1 al 9
 
-	printf("%d",random); //mientras tanto para saber cual numero esta produciendo
-
-	if (random == 1){
-		if(casilla1.marcado == 0){
-			casilla1.simbolo = compu;
+		k = 0; //al cambiar el valor de k a 1, significará que la casilla está ocupada. Cuando el loop detecte que ya está ocupada, volverá a comenzar hasta conseguir un espacio
+		
+		if (random == 1 && casilla1.marcado == 0){
 			casilla1.marcado = 1;
+			casilla1.simbolo = compu;
+			k = 1;
 		}
 
-		else if(casilla1.marcado == 1){
-			//¯\_(ツ)_/¯
-		}
-	}
-
-	if (random == 2){
-		if(casilla2.marcado == 0){
-			casilla2.simbolo = compu;
+		if (random == 2 && casilla2.marcado == 0){
 			casilla2.marcado = 1;
+			casilla2.simbolo = compu;
+			k = 1;
 		}
 
-		else{
-			random = rand() % 10;
-		}
-	}
-
-	if (random == 3){
-		if(casilla3.marcado == 0){		
-			casilla3.simbolo = compu;
-			casilla3.marcado = 1;
+		if (random == 3 && casilla3.marcado == 0){
+			casilla2.marcado = 1;
+			casilla2.simbolo = compu;
+			k = 1;
 		}
 
-		else{
-			random = rand() % 10;
-		}
-	}
-
-	if (random == 4){
-		if(casilla4.marcado == 0){
-			casilla4.simbolo = compu;
+		if (random == 4 && casilla4.marcado == 0){
 			casilla4.marcado = 1;
+			casilla4.simbolo = compu;
+			k = 1;
 		}
 
-		else{
-			random = rand() % 10;
-		}
-	}
-
-	if (random == 5){
-		if(casilla5.marcado == 0){
-				casilla5.simbolo = compu;
-				casilla5.marcado = 1;
+		if (random == 5 && casilla5.marcado == 0){
+			casilla5.marcado = 1;
+			casilla5.simbolo = compu;
+			k = 1;
 		}
 
-		else{
-			random = rand() % 10;
-		}		
-	}
-
-	if (random == 6){
-		if(casilla6.marcado == 0){
-			casilla6.simbolo = compu;
+		if (random == 6 && casilla6.marcado == 0){
 			casilla6.marcado = 1;
+			casilla6.simbolo = compu;
+			k = 1;
 		}
 
-		else{
-			random = rand() % 10;
-		}
-	}
-
-	if (random == 7){
-		if(casilla7.marcado == 0){
-			casilla7.simbolo = compu;
+		if (random == 7 && casilla7.marcado == 0){
 			casilla7.marcado = 1;
+			casilla7.simbolo = compu;
+			k = 1;
 		}
 
-		else{
-			random = rand() % 10;
-		}
-	}
-
-	if (random == 8){
-		if(casilla8.marcado == 0){
-			casilla8.simbolo = compu;
+		if (random == 8 && casilla8.marcado == 0){
 			casilla8.marcado = 1;
+			casilla8.simbolo = compu;
+			k = 1;
 		}
 
-		else{
-			random = rand() % 10;
-		}
-	}
-
-	if (random == 9){
-		if(casilla9.marcado == 0){
-			casilla9.simbolo = compu;
+		if (random == 9 && casilla9.marcado == 0){
 			casilla9.marcado = 1;
-		}
+			casilla9.simbolo = compu;
+			k = 1;
+		}		
 
-		else{
-			random = rand() % 10;
-		}
-	}	
-
-	if (random == 0){
-		random = rand () % 10;
-	}
+	}while(k == 0);
 }
 
 /*Esta funcion puede retornar tres distintos valores: 0, 1, 2
